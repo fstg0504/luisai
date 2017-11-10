@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>index</title>
+    <link href="/src/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/src/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/base.css" rel="stylesheet">
+    <link rel="stylesheet/less" href="/css/base.less" />
+    <link rel="stylesheet/less" href="/css/overview.less" />
+    <script src="/src/less/less.js"></script>
+</head>
+<body>
+<div class="container-fluid w100">
+    <header class="">
+        <div class="panel">
+            <div class="panel-body">
+                <a class="">link1</a>
+                <a class="">link2</a>
+                <a class="">link3</a>
+            </div>
+        </div>
+        <div class="nav header-nav">
+            <div class="nav-item">
+                <ul>
+                    <li class="active"><a href="">My apps</a></li>
+                    <li><a href="">Docs</a></li>
+                    <li><a href="">link3</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="main w90" id="main">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="left-con">
+                    <h2>appname</h2>
+                    <h5>Version:  0.1</h5>
+                    <hr class="spacer-32-bottom">
+                    <ul class="path-items">
+                        <li class="path-li"><a class=" active">Intents</a></li>
+                        <li class="path-li"><a class=" ">Entities</a></li>
+                        <li class="path-li"><a class=" ">Train & Test</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-10">
+                <div class="right-con">
+                    <h2>Intents</h2>
+                    <p>A listing of intents in the application. Click an intent to view/edit its details, or add a new intent ... <a >Learn more</a></p>
+                    <div class="btn-con">
+                        <button class="btn addIntent" data-toggle="modal" data-target="#addIntentModal">Add Intent</button>
+                        <button class="btn addPrebuilt">Add prebuilt domain intents</button>
+                    </div>
+                    <div class="intents-list-con">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Intent Name</th>
+                                <th>Utterances</th>
+                                <th>删除修改</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-cloak v-for="(item,index) in intentList" :key="index">
+                                <td ><a :id="item.id">{{ item.name }}</a></td>
+                                <td >{{ item.utterances }}</td>
+                                <td class="handle-td">
+                                    <a class="handle-a"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <a class="handle-a"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="modal fade" id="addIntentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Add Intent</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="intentName">Intent name (REQUIRED)</label>
+                                            <input v-model="intentName" type="text" class="form-control" id="intentName" placeholder="Type intent name ...">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" @click="add()">保存</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="utterances-list-con">
+                        <div class="row">
+                            <ul class="nav-tabs">
+                                <li class="active"><span class="">Utterances</span><span class="num">(1)</span></li>
+                                <li class=""><span class="">Entities in use</span></li>
+                                <li class=""><span class="">Suggested utterances</span></li>
+                            </ul>
+                            <div class="form-group">
+                                <input v-model="newUtterance" type="text" class="form-control" id="newUtterance" placeholder="输入一个新的话语和按下回车。">
+                            </div>
+                            <div class="row tools-header">
+                                <ul class="tools-list">
+                                    <li class="Save"><a><i  class="fa fa-floppy-o"></i><span >Save</span></a></li>
+                                    <li class="Discard"><a><i  class="fa fa-times"></i><span >Discard</span></a></li>
+                                    <li class="Delete" ><a><i  class="fa fa-trash"></i><span >Delete</span></a></li>
+                                    <li class="reassign-li">
+                                        <a><span >Reassign Intent</span><i class="adjusted-reassign-icon win-icon win-icon-ChevronDown"></i></a>
+                                        <select class="">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                        </select>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="utterances-items">
+                                <div class="utterances-item utterance-list-header clearfix">
+                                    <div class="item-d checkbox-con full-left"><label><input type="checkbox"> Utterance text</label></div>
+                                    <div class="item-d full-right">Predicted Intent</div>
+                                </div>
+                                <div class="utterances-item clearfix clearfix" v-for="">
+                                    <div class="item-d checkbox full-left"><label><input type="checkbox"> Utterance text</label></div>
+                                    <div class="item-d full-right">
+                                        <div class="title">11111</div>
+                                        <div class="info">2222222222</div></div>
+                                </div>
+                                <div class="utterances-item clearfix clearfix" v-for="">
+                                    <div class="item-d checkbox full-left"><label><input type="checkbox"> Utterance text</label></div>
+                                    <div class="item-d full-right">
+                                        <div class="title">11111</div>
+                                        <div class="info">2222222222</div></div>
+                                </div>
+                                <div class="utterances-item clearfix clearfix" v-for="">
+                                    <div class="item-d checkbox full-left"><label><input type="checkbox"> Utterance text</label></div>
+                                    <div class="item-d full-right">
+                                        <div class="title">11111</div>
+                                        <div class="info">2222222222</div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/x-template" id="overviewlayout">
+
+</script>
+</body>
+<script src="/src/jquery/jquery.1.11.0.min.js"></script>
+<script src="/src/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script src="/src/vue/vue.js"></script>
+<script src="/config.js"></script>
+<script src="/js/overview.js"></script>
+</html>

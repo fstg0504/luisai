@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>index</title>
+    <link href="/src/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/src/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet/less" href="/css/base.less" />
+    <link rel="stylesheet/less" href="/css/index.less" />
+    <script src="/src/less/less.js"></script>
+</head>
+<body>
+<div class="container-fluid w100">
+    <header class="">
+        <div class="panel">
+            <div class="panel-body">
+                <a class="">link1</a>
+                <a class="">link2</a>
+                <a class="">link3</a>
+            </div>
+        </div>
+        <div class="nav header-nav">
+            <div class="nav-item">
+                <ul>
+                    <li class="active"><a href="">My apps</a></li>
+                    <li><a href="">Docs</a></li>
+                    <li><a href="">link3</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="main w90" id="main">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="">My apps</h1>
+                <p>Create and manage your LUIS applications ...
+                    <a>Learn more</a>
+                </p>
+                <div class="btn-group">
+                    <button class="btn newbtn" data-toggle="modal" data-target="#addAPPModal">New App</button>
+                </div>
+            </div>
+        </div>
+        <div class="myapps">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Created date</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-cloak v-for="(item,index) in applist" :key="index">
+                        <td ><a :href="'/overview.html?appid='+item.id">{{ item.name }}</a></td>
+                        <td >{{ item.createdDate }}</td>
+                        <td >{{ item.Description }}</td>
+                        <!--<td class="handle-td">
+                            <a class="handle-a"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a class="handle-a"><i class="fa fa-cloud-download" aria-hidden="true"></i></a>
+                            <a class="handle-a"><i class="fa fa-code" aria-hidden="true"></i></a>
+                            <a class="handle-a"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        </td>-->
+                    </tr>
+                </tbody>
+            </table>
+            <div class="modal fade" id="addAPPModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Create a new app</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Name (REQUIRED)</label>
+                                    <input v-model="addappName" type="text" class="form-control" id="appName" placeholder="APP名称">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">描述</label>
+                                    <textarea v-model="addappDescription" class="form-control" id="appDescription" placeholder="APP描述"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" @click="add()">保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/src/jquery/jquery.1.11.0.min.js"></script>
+<script src="/src/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script src="/src/vue/vue.js"></script>
+<script src="/config.js"></script>
+<script src="/js/index.js"></script>
+</html>

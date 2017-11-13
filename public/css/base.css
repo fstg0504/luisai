@@ -7,6 +7,9 @@ li {
   padding: 0;
   margin: 0;
 }
+a {
+  cursor: pointer;
+}
 .w100 {
   padding: 0;
   margin: 0;
@@ -64,4 +67,18 @@ li {
 }
 .header-nav .nav-item ul li.active {
   background-color: #ffb900;
+}
+#main-layout .left-con .path-items li {
+  margin-top: 16px;
+}
+#main-layout .left-con .path-items li a {
+  cursor: pointer;
+  color: #656565;
+}
+#main-layout .left-con .path-items li a:hover {
+  color: #000;
+}
+#main-layout .left-con .path-items li a.active {
+  color: #000;
+  font-weight: 600;
 }

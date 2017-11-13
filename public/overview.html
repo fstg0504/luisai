@@ -42,111 +42,126 @@
                     <ul class="path-items">
                         <li class="path-li"><a class=" active">Intents</a></li>
                         <li class="path-li"><a class=" ">Entities</a></li>
-                        <li class="path-li"><a class=" ">Train & Test</a></li>
+                        <li class="path-li"><a href="/trainTest.html" class=" ">Train & Test</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-10">
                 <div class="right-con">
-                    <h2>Intents</h2>
-                    <p>A listing of intents in the application. Click an intent to view/edit its details, or add a new intent ... <a >Learn more</a></p>
-                    <div class="btn-con">
-                        <button class="btn addIntent" data-toggle="modal" data-target="#addIntentModal">Add Intent</button>
-                        <button class="btn addPrebuilt">Add prebuilt domain intents</button>
-                    </div>
-                    <div class="intents-list-con">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>Intent Name</th>
-                                <th>Utterances</th>
-                                <th>删除修改</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-cloak v-for="(item,index) in intentList" :key="index">
-                                <td ><a :id="item.id">{{ item.name }}</a></td>
-                                <td >{{ item.utterances }}</td>
-                                <td class="handle-td">
-                                    <a class="handle-a"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                    <a class="handle-a"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div class="modal fade" id="addIntentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <template v-if="intentListShow">
+                        <h2>Intents</h2>
+                        <p>A listing of intents in the application. Click an intent to view/edit its details, or add a new intent ... <a >Learn more</a></p>
+                        <div class="btn-con">
+                            <button class="btn addIntent" data-toggle="modal" data-target="#addIntentModal">Add Intent</button>
+                            <button class="btn addPrebuilt">Add prebuilt domain intents</button>
+                        </div>
+                        <div class="intents-list-con">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Intent Name</th>
+                                    <th>Utterances</th>
+                                    <th>删除修改</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-cloak v-for="(item,index) in intentList" :key="index">
+                                    <td ><a :id="item.id" @click="utterancesListShow(item)">{{ item.name }}</a></td>
+                                    <td >{{ item.utterances }}</td>
+                                    <td class="handle-td">
+                                        <a class="handle-a"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                        <a class="handle-a"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="modal fade" id="addIntentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title">Add Intent</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="intentName">Intent name (REQUIRED)</label>
+                                                <input v-model="intentName" type="text" class="form-control" id="intentName" placeholder="Type intent name ...">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary" @click="add()">保存</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <h2>{{intentNameNow}}</h2>
+                        <p>Here you are in full control of this intent; you can manage its utterances, used entities and suggested utterances ...<a >Learn more</a></p>
+                        <div class="utterances-list-con">
+                            <div class="row">
+                                <ul class="nav-tabs">
+                                    <li class="active"><span class="">Utterances</span><span class="num">(1)</span></li>
+                                    <li class=""><span class="">Entities in use</span></li>
+                                    <li class=""><span class="">Suggested utterances</span></li>
+                                </ul>
+                                <div class="form-group">
+                                    <input v-model="newUtterance" type="text" class="form-control" id="newUtterance" placeholder="输入一个新的话语和按下回车。">
+                                </div>
+                                <div class="row tools-header">
+                                    <ul class="tools-list-ul">
+                                        <li class="Save" :class="{'disabled':utterancesLiDisabled1}"><a><i  class="fa fa-floppy-o"></i><span >Save</span></a></li>
+                                        <li class="Discard" :class="{'disabled':utterancesLiDisabled1}"><a><i  class="fa fa-times"></i><span >Discard</span></a></li>
+                                        <li class="Delete"  :class="{'disabled':utterancesLiDisabled2}"><a><i  class="fa fa-trash"></i><span >Delete</span></a></li>
+                                        <li class="reassign-li" :class="{'disabled':utterancesLiDisabled2}">
+                                            <a @click="reassign_ul=!reassign_ul"><span>Reassign Intent</span><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
+                                            <ul class="select-ul" v-if="reassign_ul">
+                                                <li v-for="(item,index) in reassignList" @click="reassignModuleShow(item)" :id="item.id" :key="index">
+                                                    <span>{{item.name}}</span><span>{{'('+item.precision+')'}}</span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="utterances-items">
+                                    <div class="utterances-item utterance-list-header clearfix">
+                                        <div class="item-d checkbox checkbox-con pull-left">
+                                            <label><input type="checkbox" v-model="utterancesListCheckAll" @click="switcCheckListAll()">全选</label>
+                                        </div>
+                                        <div class="item-d pull-right">Predicted Intent</div>
+                                    </div>
+                                    <div class="utterances-item clearfix" v-for="(item,index) in utterancesList" :key="index">
+                                        <div class="item-d checkbox pull-left">
+                                            <label><input type="checkbox" :value="item.id" v-model="utterancesListCheckList[index]" @click="selectItem(item.id)">{{item.name}}</label>
+                                        </div>
+                                        <div class="item-d pull-right">
+                                            <div class="title">{{item.title}}</div>
+                                            <div class="info">{{item.info}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="reassignUtterancesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title">Add Intent</h4>
+                                        <h4 class="modal-title">Reassign utterance(s)?</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="intentName">Intent name (REQUIRED)</label>
-                                            <input v-model="intentName" type="text" class="form-control" id="intentName" placeholder="Type intent name ...">
-                                        </div>
+                                        <p>Are you sure you want to reassign <span class="warn">1</span> utterance(s) to the <span class="warn">{{reassignItem.name}}</span> intent?</p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" @click="add()">保存</button>
+                                        <button type="button" class="btn btn-primary" @click="reassignUtterances(reassignItem.id)">保存</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="utterances-list-con">
-                        <div class="row">
-                            <ul class="nav-tabs">
-                                <li class="active"><span class="">Utterances</span><span class="num">(1)</span></li>
-                                <li class=""><span class="">Entities in use</span></li>
-                                <li class=""><span class="">Suggested utterances</span></li>
-                            </ul>
-                            <div class="form-group">
-                                <input v-model="newUtterance" type="text" class="form-control" id="newUtterance" placeholder="输入一个新的话语和按下回车。">
-                            </div>
-                            <div class="row tools-header">
-                                <ul class="tools-list">
-                                    <li class="Save"><a><i  class="fa fa-floppy-o"></i><span >Save</span></a></li>
-                                    <li class="Discard"><a><i  class="fa fa-times"></i><span >Discard</span></a></li>
-                                    <li class="Delete" ><a><i  class="fa fa-trash"></i><span >Delete</span></a></li>
-                                    <li class="reassign-li">
-                                        <a><span >Reassign Intent</span><i class="adjusted-reassign-icon win-icon win-icon-ChevronDown"></i></a>
-                                        <select class="">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                        </select>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="utterances-items">
-                                <div class="utterances-item utterance-list-header clearfix">
-                                    <div class="item-d checkbox-con full-left"><label><input type="checkbox"> Utterance text</label></div>
-                                    <div class="item-d full-right">Predicted Intent</div>
-                                </div>
-                                <div class="utterances-item clearfix clearfix" v-for="">
-                                    <div class="item-d checkbox full-left"><label><input type="checkbox"> Utterance text</label></div>
-                                    <div class="item-d full-right">
-                                        <div class="title">11111</div>
-                                        <div class="info">2222222222</div></div>
-                                </div>
-                                <div class="utterances-item clearfix clearfix" v-for="">
-                                    <div class="item-d checkbox full-left"><label><input type="checkbox"> Utterance text</label></div>
-                                    <div class="item-d full-right">
-                                        <div class="title">11111</div>
-                                        <div class="info">2222222222</div></div>
-                                </div>
-                                <div class="utterances-item clearfix clearfix" v-for="">
-                                    <div class="item-d checkbox full-left"><label><input type="checkbox"> Utterance text</label></div>
-                                    <div class="item-d full-right">
-                                        <div class="title">11111</div>
-                                        <div class="info">2222222222</div></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    </template>
                 </div>
             </div>
         </div>

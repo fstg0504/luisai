@@ -1,0 +1,133 @@
+.main{
+  width: 90%;margin: 0 auto;
+}
+.right-con{
+  width: 90%;margin: 0 auto 0 0;
+  .row{
+    padding: 0; margin: 0;
+  }
+  .btn-con{
+    .btn{
+      margin-right: 10px;
+      padding: 0 10px;
+      height: 36px;
+      background-color: #ffb900;
+      text-align: center;
+      border-style: solid;
+      border-width: 1px;
+      border-color: transparent;
+      &:hover{
+        border-color:#004b50;
+      }
+    }
+  }
+  .train-list-con{
+    .nav-tabs{
+      li{
+        float: left;
+        margin:0 10px 20px 0;
+        color: rgba(0,0,0,0.6);
+        font-size:20px;
+        line-height: 48px;
+        font-weight: 300;
+        span{cursor: pointer;}
+      }
+      li.active{color: rgba(0,0,0,1);}
+      li.active span {
+        color: #000;
+      }
+    }
+    .filter-con{
+      .checkbox{
+        margin: 0;
+        .form-control{width: auto;height: auto;}
+      }
+    }
+    .train-txt-con{
+
+    }
+    .train-txt-con{
+      padding: 0;margin: 0;
+      width: 49%;
+      height: 400px;
+    }
+    .train-txt-left{
+      border: 1px solid #d2d2d2;
+      .from-group{
+        position: relative;
+        height: 40px;
+        input{
+          border: 0;
+          border-radius: 0;
+          border-top:transparent;
+          border-bottom: 1px solid #d2d2d2;
+        }
+        i{
+          font-size: 20px;cursor: pointer;
+          position: absolute;right: 10px;top: 7px;
+          &:hover{color: #006cd8;}
+        }
+      }
+      .chat-items-wrapper{
+        .chat-item-wrapper{
+          width: 96%;margin: 0 auto;
+          position: relative;
+          cursor: pointer;
+          padding: 0.5rem;
+          border-radius: 0.125rem;
+          margin-bottom: 0.4rem;
+          background-color: #f2f2f2;
+          &:hover{
+            background-color: #d2d2d2;
+          }
+        }
+        .chat-item-wrapper.selected{
+          background-color: #d2d2d2;
+          :after{
+            content: ' ';
+            position: absolute;
+            top: 0.7rem;
+            right: -0.7rem;
+            width: 0;
+            height: 0;
+            border: 0.4rem solid;
+            border-color: transparent;
+            border-left-color: #ffb900;
+            box-sizing: border-box;
+          }
+        }
+      }
+    }
+    .train-txt-right{
+      padding-left: 0.25rem;
+      .results-wrapper{
+        display: table;
+        width: 100%;
+        height: 400px;
+        padding: 1rem 2rem;
+        border: 1px solid #d2d2d2;
+        border-left: 0;
+        background-color: #f2f2f2;
+        position:relative;
+        :before{
+          content: " ";
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          width: 8px;
+          background-color: #d2d2d2;
+        }
+        .results-response-wrapper{
+
+        }
+      }
+      .results-wrapper.active{
+        :before{
+          background-color: #ffb900;
+        }
+      }
+
+    }
+  }
+}

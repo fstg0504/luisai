@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>index</title>
+    <link href="/src/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/src/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet/less" href="/css/base.less" />
+    <link rel="stylesheet/less" href="/css/trainTest.less" />
+    <script src="/src/less/less.js"></script>
+</head>
+<body>
+<div class="container-fluid w100">
+    <header class="">
+        <div class="panel">
+            <div class="panel-body">
+                <a class="">link1</a>
+                <a class="">link2</a>
+                <a class="">link3</a>
+            </div>
+        </div>
+        <div class="nav header-nav">
+            <div class="nav-item">
+                <ul>
+                    <li class="active"><a href="">My apps</a></li>
+                    <li><a href="">Docs</a></li>
+                    <li><a href="">link3</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="main w90" id="main">
+        <div class="row" id="main-layout">
+            <div class="col-lg-2">
+                <div class="left-con">
+                    <h2>appname</h2>
+                    <h5>Version:  0.1</h5>
+                    <hr class="spacer-32-bottom">
+                    <ul class="path-items">
+                        <li class="path-li"><a class="">Intents</a></li>
+                        <li class="path-li"><a class="">Entities</a></li>
+                        <li class="path-li"><a class="active">Train & Test</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-10">
+                <div class="right-con">
+                    <h2>Test your application</h2>
+                    <p>Use this tool to test the current and published versions of your application, to check if you are progressing on the right track ... <a >Learn more</a></p>
+                    <div class="train-list-con">
+                        <div class="row">
+                            <ul class="nav-tabs">
+                                <li class="active"><span class="">Interactive Testing</span></li>
+                                <li class=""><span class="">Batch Testing</span></li>
+                            </ul>
+                        </div>
+                        <div class="row filter-con clearfix">
+                            <div class="form-group checkbox pull-left">
+                                <label><input type="checkbox" class="form-control" disabled>Enable published model</label>
+                            </div>
+                            <div class="form-group pull-right">
+                                <label>
+                                    <span class=".form-control-static">Labels view (Ctrl+E)</span>
+                                    <select class="">
+                                        <option>111111</option>
+                                        <option>111111</option>
+                                        <option>111111</option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="train-txt-con train-txt-left pull-left">
+                                <div class="from-group">
+                                    <input type="text" class="form-control"><i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                </div>
+                                <div class="chat-items-wrapper">
+                                    <div class="chat-item-wrapper selected">
+                                        <span class="token-word">dfdf</span>
+                                    </div>
+                                    <div class="chat-item-wrapper">
+                                        <span class="token-word">dfdf</span>
+                                    </div>
+                                    <div class="chat-item-wrapper">
+                                        <span class="token-word">dfdf</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="train-txt-con train-txt-right pull-right">
+                                <div class="results-wrapper active">
+                                    <div class="results-response-wrapper">
+                                        <h4 class="spacer-12-bottom">Current version results</h4>
+                                        <div  class="spacer-12-bottom main-intent">
+                                            <h5  class="win-color-fg-secondary">Top scoring intent</h5>
+                                            <h4 ><span  class="intent-name">None </span><span >(0.73)</span></h4>
+                                        </div>
+                                        <div  class="spacer-12-bottom">
+                                            <h5  class="win-color-fg-secondary">Other intents</h5>
+                                            <ul  class="other-intent-list">
+                                                <li >询问火车票 (0)</li><li >寻找歌单 (0)</li>
+                                            </ul>
+                                        </div>
+                                        <hr class="solid-hr">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/src/jquery/jquery.1.11.0.min.js"></script>
+<script src="/src/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script src="/src/vue/vue.js"></script>
+<script src="/config.js"></script>
+<script src="/js/trainTest.js"></script>
+</html>

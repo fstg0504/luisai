@@ -114,6 +114,9 @@
       }
     }
     .utterances-items{
+      max-height: 400px;
+      overflow-y: scroll;
+      margin-bottom: 20px;
       border-left: 1px solid #d2d2d2;
       border-right: 1px solid #d2d2d2;
       .utterance-list-header{}
@@ -123,8 +126,8 @@
         .full-left{float: left;}
         .full-right{float: right;}
         .item-d{
-          .title{font-weight: 600;font-size: 18px;text-align: right;}
-          .info{
+          .precision{font-weight: 600;font-size: 18px;text-align: right;}
+          .intentName{
             font-size: 12px;
             white-space: nowrap;
             text-overflow: ellipsis;

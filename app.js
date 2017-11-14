@@ -17,13 +17,6 @@ app.get('/', function (req, res) {
 });
 
 
-
-
-
-
-
-
-
 // Additional middleware which will set headers that we need on each request.
 app.use(function(req, res, next) {
     // Set permissive CORS header - this allows this server to be used only as

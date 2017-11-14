@@ -1,62 +1,48 @@
 $(function () {
-    var testDate=[
+    var intentList=[
         {
             id:'1',
-            name:'你问我答',
-            utterances:'对答问题模型',
+            name:'问候语',
+            utterances:'对答问候语模型',
+            precision:0.01,
         },
         {
             id:'2',
-            name:'test3',
-            utterances:'22222',
+            name:'查询天气',
+            utterances:'对答问题查询天气',
+            precision:0.01,
         },
         {
             id:'3',
-            name:'app1',
-            utterances:'aaa33',
+            name:'寻找歌单',
+            utterances:'查找歌曲作者',
+            precision:0.01,
         }
     ];
-    var testutterancesList=[
+    var utterancesList=[
         {
             id:'1',
-            name:'hello world',
-            title:'问候',
-            info:'测试你好的回答',
+            utterance:'hello world',
+            intentName:'问候语',
+            precision:'0.8',
         },
         {
             id:'2',
-            name:'北京天气',
-            title:'天气',
-            info:'查询天气',
+            utterance:'吃饭了吗',
+            intentName:'问候语',
+            precision:'0.8',
         },
         {
             id:'3',
-            name:'询问火车票',
-            title:'车票',
-            info:'查询天气',
-        },{
+            utterance:'周末打算去哪里玩',
+            intentName:'问候语',
+            precision:'0.2',
+        },
+        {
             id:'4',
-            name:'寻找歌单',
-            title:'车票',
-            info:'查询天气',
-        },
-
-    ];
-    var reassignList=[
-        {
-            id:'1',
-            name:'hello world',
-            precision:0.5,
-        },
-        {
-            id:'2',
-            name:'北京天气',
-            precision:0.05,
-        },
-        {
-            id:'3',
-            name:'上海车票',
-            precision:0.99,
+            utterance:'小明是谁',
+            intentName:'问候语',
+            precision:'0.1',
         },
 
     ];
@@ -80,21 +66,24 @@ $(function () {
             reassign_ul:false,
         },
         created:function () {
-            this.intentList=testDate;
-            this.utterancesList=testutterancesList;
-            this.reassignList=testutterancesList;
+            this.intentList=intentList;
+            this.utterancesList=utterancesList;
+            this.reassignList=intentList;
         },
         mounted:function () {
             console.log(this.utterancesListCheckList)
         },
+        components: {
+            'main-layout': MainLayout
+        },
         methods: {
             add:function () {
-                var opt={
+                var addobj={
                     name:this.intentName,
-                    id:this.intentList.length,
+                    id:this.intentList.length+1,
                     utterances:'本地添加测试',
                 }
-                this.intentList.push(opt);
+                this.intentList.push(addobj);
                 $('#addIntentModal').modal('hide');
                 //TODO 提交
             },
@@ -121,6 +110,19 @@ $(function () {
                 this.intentNameNow=item.name;
                 this.intentListShow=false;
             },
+            addUtterance:function (event) {
+                if(event.keyCode == "13") {
+                    var addobj={
+                        id:this.utterancesList.length+1,
+                        intentName:this.intentNameNow,
+                        precision:0.01,
+                        utterance:this.newUtterance,
+                        newItem:true,
+                    };
+                    this.utterancesList.unshift(addobj);
+                    this.newUtterance='';
+                }
+            },
             reassignModuleShow:function (item) {
                $('#reassignUtterancesModal').modal('show');
                this.reassignItem=item;
@@ -132,10 +134,17 @@ $(function () {
         },
         watch:{
             utterancesList:function () {
+                this.utterancesListCheckList.splice(0,this.utterancesListCheckList.length);
                 for(var i in this.utterancesList){
-                    this.utterancesListCheckList.push(false);}
-
+                    var node=this.utterancesList[i];
+                    if(node.newItem){
+                        this.utterancesListCheckList.push(true);
+                    }else {
+                        this.utterancesListCheckList.push(false);
+                    }
+                }
                 this.utterancesLiDisabled2=false;
+                console.log(this.utterancesListCheckList)
             },
             utterancesListCheckList:function () {
                 if(this.utterancesListCheckList.includes(true)&&this.utterancesListCheckList.includes(false)){
@@ -157,4 +166,7 @@ $(function () {
             },
         }
     });
+    $('.path-items .intents').on('click',function () {
+        VMmain.intentListShow=true;
+    })
 });

@@ -35,16 +35,7 @@
     <div class="main w90" id="main">
         <div class="row">
             <div class="col-lg-2">
-                <div class="left-con">
-                    <h2>appname</h2>
-                    <h5>Version:  0.1</h5>
-                    <hr class="spacer-32-bottom">
-                    <ul class="path-items">
-                        <li class="path-li"><a class=" active">Intents</a></li>
-                        <li class="path-li"><a class=" ">Entities</a></li>
-                        <li class="path-li"><a href="/trainTest.html" class=" ">Train & Test</a></li>
-                    </ul>
-                </div>
+                <main-layout></main-layout>
             </div>
             <div class="col-lg-10">
                 <div class="right-con">
@@ -108,7 +99,7 @@
                                     <li class=""><span class="">Suggested utterances</span></li>
                                 </ul>
                                 <div class="form-group">
-                                    <input v-model="newUtterance" type="text" class="form-control" id="newUtterance" placeholder="输入一个新的话语和按下回车。">
+                                    <input v-model="newUtterance" @keydown="addUtterance($event)" type="text" class="form-control" id="newUtterance" placeholder="输入一个新的话语和按下回车。">
                                 </div>
                                 <div class="row tools-header">
                                     <ul class="tools-list-ul">
@@ -134,11 +125,11 @@
                                     </div>
                                     <div class="utterances-item clearfix" v-for="(item,index) in utterancesList" :key="index">
                                         <div class="item-d checkbox pull-left">
-                                            <label><input type="checkbox" :value="item.id" v-model="utterancesListCheckList[index]" @click="selectItem(item.id)">{{item.name}}</label>
+                                            <label><input type="checkbox" :value="item.id" v-model="utterancesListCheckList[index]" @click="selectItem(item.id)">{{item.utterance}}</label>
                                         </div>
                                         <div class="item-d pull-right">
-                                            <div class="title">{{item.title}}</div>
-                                            <div class="info">{{item.info}}</div>
+                                            <div class="precision">{{item.precision}}</div>
+                                            <div class="intentName">{{item.intentName}}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -167,13 +158,12 @@
         </div>
     </div>
 </div>
-<script type="text/x-template" id="overviewlayout">
-
-</script>
 </body>
 <script src="/src/jquery/jquery.1.11.0.min.js"></script>
 <script src="/src/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 <script src="/src/vue/vue.js"></script>
 <script src="/config.js"></script>
+<script src="/components/Header.js"></script>
+<script src="/components/MainLayout.js"></script>
 <script src="/js/overview.js"></script>
 </html>

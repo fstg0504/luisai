@@ -40,6 +40,9 @@ $(function () {
         },
         methods: {
             addChat:function () {
+                if(this.inputChat==''||this.inputChat==undefined){
+                    return false;
+                }
                this.resultsLoading=true;
                this.resultsShow=false;
                var addobj={
